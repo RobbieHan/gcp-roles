@@ -35,4 +35,4 @@
 
 - name: Unconditionally reboot the machine with all defaults
   reboot:
-    reboot_timeout: 40
+    reboot_timeout: 30
