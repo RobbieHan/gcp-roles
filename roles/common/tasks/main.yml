@@ -1,0 +1,12 @@
+---
+- include_tasks: setup-centos.yml
+  when: system_setup
+
+- include_tasks: update-and-install.yml
+  when: system_update
+
+- include_tasks: ntpd-manage.yml
+  when: ntpd_setup
+
+- include_tasks: create-swap.yml
+  when: create_swap

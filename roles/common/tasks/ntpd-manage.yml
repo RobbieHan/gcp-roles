@@ -1,0 +1,5 @@
+- name: Make sure the service of ntpd is installed
+  yum: name=ntp state=present
+
+- name: Start ntpd on boot
+  service: name=ntpd state=started enabled=yes

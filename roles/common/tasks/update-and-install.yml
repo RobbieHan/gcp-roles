@@ -1,0 +1,24 @@
+- name: Upgrade all packages
+  yum: name="*" state= latest
+
+- name: Install epel-release
+  yum: name=epel-release sate=latst
+
+- name: Install base packages
+  yum: name={{ item }} state=latest
+  with_items:
+    - gcc
+    - gcc-c++
+    - openssl-devel
+    - lrzsz
+    - unzip
+    - zip
+    - ntp
+    - vim
+    - tree
+    - net-tools
+    - libselinux-python
+    - iotop
+    - tcpdump
+    - lvm2
+    - wget

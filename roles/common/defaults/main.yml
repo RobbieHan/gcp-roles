@@ -1,0 +1,4 @@
+create_swap: true
+ntpd_setup: true
+sustem_setup: true
+system_update: true

@@ -1,0 +1,20 @@
+- name: create swapfile
+  command: dd if=/dev/zero of=/swapfile bs=1M count=8192
+
+- name: Ensure file permissions 644
+  file:
+    path: /swapfile
+    owner: root
+    group: root
+    mode: '0600'
+
+- name: format /swapfilexs
+  command: mkswap /swapfile
+
+- name: mount /swapfile
+  command: swapon /swapfile
+
+- name: Enable startup for swap
+  lineinfile:
+    path: /etc/fstab
+    line: '/swapfile     swap      swap    defaults    0 0'

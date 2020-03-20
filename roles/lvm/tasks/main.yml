@@ -1,0 +1,38 @@
+---
+- name: Create a volume group
+  lvg:
+    vg: "{{ item.vgname }}"
+    pvs: "{{ item.dev }}"
+  with_items: "{{ lvm_disk }}"
+
+- name: Create a logical volume
+  lvol:
+    vg: "{{ item.vgname }}"
+    lv: "{{ item.disk }}"
+    size: 100%FREE
+    pvs: "{{ item.dev }}"
+  with_items: "{{ lvm_disk }}"
+
+- name: Create a filesystem on lvm disks
+  filesystem:
+    fstype: "{{ item.fstype }}"
+    dev: "/dev/{{ item.vgname }}/{{ item.disk }}"
+  with_items: "{{ lvm_disk }}"
+
+- name: Create directory if it does not exist
+  file:
+    path: "{{ item.mount_dir }}"
+    state: directory
+  with_items: "{{ lvm_disk }}"
+
+- name: Mount directory
+  mount:
+    path: "{{ item.mount_dir }}"
+    fstype: "{{ item.fstype }}"
+    state: mounted
+    src: "/dev/{{ item.vgname }}/{{ item.disk }}"
+  with_items: "{{ lvm_disk }}"
+
+- name: Unconditionally reboot the machine with all defaults
+  reboot:
+    reboot_timeout: 40

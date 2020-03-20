@@ -1,0 +1,3 @@
+
+{% if host_name %} {{ host_name }} {% endif %} {{ ansible_host }}
+

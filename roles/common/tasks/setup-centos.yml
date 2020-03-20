@@ -1,0 +1,52 @@
+- name: Disable Selinux
+  selinux: state=disabled
+
+- name: Add or modify nofile soft limit for all user
+  pam_limits:
+    domain: '*'
+    limit_type: "{{item.limit_type}}"
+    limit_item: "{{item.limit_item}}"
+    value: "{{item.value}}"
+  with_items:
+    - { limit_type: '-', limit_item: 'nofile', value: 102400 }
+    - { limit_type: '-', limit_item: 'nproc', value: 102400 }
+
+- name: Modify sysctl.conf
+  copy: src=common_sysctl.conf dest=/etc/sysctl.conf
+
+- name: sysctl -p
+  shell: sysctl -p
+
+- name: Modify motd
+  template: src=common_motd dest=/etc/motd
+  when: centos7_modify_motd
+  
+- name: Stop firewalld service
+  systemd: name=firewalld state=stopped
+  when: 
+    - ansible_facts['distribution'] == "CentOS"
+    - ansible_facts['distribution_major_version'] == "7"
+
+- name: Remove the firewalld package
+  yum: name=firewalld state=absent
+  when: 
+    - ansible_facts['distribution'] == "CentOS"
+    - ansible_facts['distribution_major_version'] == "7"
+
+  - name: Set timezone to Asia/Shanghai
+  timezone:
+    name: Asia/Shanghai
+
+- name: Setting for history timeline
+  lineinfile:
+    path: "{{ item }}"
+    line: export HISTTIMEFORMAT="%F %T "
+    create: yes
+  with_items:
+    - /root/.bashrc
+    - /etc/profile
+
+- name: Set hostname
+  hostname: name={{ host_name }}
+  when:
+    - host_name is defined
