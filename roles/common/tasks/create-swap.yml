@@ -1,6 +1,6 @@
 - name: create swapfile
   command: dd if=/dev/zero of=/swapfile bs=1M count=8192
-
+  
 - name: Ensure file permissions 644
   file:
     path: /swapfile

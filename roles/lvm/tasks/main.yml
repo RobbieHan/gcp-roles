@@ -12,6 +12,7 @@
     size: 100%FREE
     pvs: "{{ item.dev }}"
   with_items: "{{ lvm_disk }}"
+  ignore_errors: true
 
 - name: Create a filesystem on lvm disks
   filesystem:
