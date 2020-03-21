@@ -1,0 +1,116 @@
+[mysql]
+prompt="\\u@\\h:\\d \\r:\\m:\\s> "
+
+no_auto_rehash
+[mysqld]
+federated
+# basedir=/usr/local/mysql
+datadir=/db/mysql/data
+pid-file=/db/mysql/data/mysqld.pid
+socket=/var/lib/mysql/mysql.sock
+port=3306
+log_error=/var/log/mysql_error.log
+slow_query_log_file=/var/log/mysql_slow.log
+log_bin=/db/mysql/binlog/mysql_bin
+# innodb_data_home_dir=/data/mysql/ibdata
+innodb_log_group_home_dir=/db/mysql/redo
+relay_log=/db/mysql/binlog/mysql_relay
+relay_log_index=/db/mysql/binlog/mysql_relay.index
+
+server_id=30
+symbolic-links=0
+
+skip-ssl  ### SSL context is not usable without certificate and private key
+user=mysql
+
+character_set_server=utf8mb4
+character_set_filesystem=utf8
+max_allowed_packet=32M
+event_scheduler=1
+default_storage_engine=innodb
+open_files_limit=65535
+local_infile=1
+sysdate_is_now=1
+back_log=256
+##error log format
+# connection
+interactive_timeout=28800
+wait_timeout=28800
+lock_wait_timeout=28800
+skip_name_resolve=1
+max_connections=2000
+max_user_connections=1000
+max_connect_errors=1000000
+
+# table cache performance settings #
+table_open_cache=8192
+table_definition_cache=8192
+table_open_cache_instances=16
+
+# session memory settings #
+read_buffer_size=131072
+read_rnd_buffer_size=262144
+sort_buffer_size=262144
+tmp_table_size=67108864
+join_buffer_size=8M
+thread_cache_size=256
+
+# log settings #
+###slow log  ###
+slow_query_log=1
+log_queries_not_using_indexes=0
+log_slow_admin_statements=1
+#log_slow_slave_statements = 1
+log_throttle_queries_not_using_indexes=1
+long_query_time=0.5
+log_bin_trust_function_creators=1
+
+
+###query log ###
+general_log=0
+
+###binlog ###
+binlog_cache_size=32K
+max_binlog_cache_size=1G
+max_binlog_size=2G
+expire_logs_days=31
+log_slave_updates=1
+binlog_format=STATEMENT
+
+
+# innodb settings #
+innodb_data_file_path=ibdata1:4G;ibdata2:4G:autoextend
+innodb_page_size=16384
+innodb_buffer_pool_size=4G
+innodb_buffer_pool_instances=1
+innodb_buffer_pool_load_at_startup=1
+innodb_buffer_pool_dump_at_shutdown=1
+innodb_lock_wait_timeout=50
+innodb_io_capacity=100
+innodb_io_capacity_max=200
+innodb_flush_neighbors=1
+innodb_file_per_table=1
+innodb_log_files_in_group=3
+innodb_log_file_size=2G
+innodb_log_buffer_size=33554432
+innodb_purge_threads=2
+innodb_large_prefix=1
+innodb_thread_concurrency=64
+innodb_print_all_deadlocks=1
+innodb_strict_mode=1
+innodb_sort_buffer_size=67108864
+innodb_write_io_threads=4
+innodb_read_io_threads=4
+innodb_online_alter_log_max_size=1G
+innodb_open_files=60000
+innodb_max_dirty_pages_pct=75
+innodb_adaptive_flushing=on
+innodb_flush_log_at_trx_commit=1
+
+sync_binlog =1
+gtid_mode=on
+enforce_gtid_consistency=1
+
+relay_log_recovery=1
+[client]
+socket=/var/lib/mysql/mysql.sock

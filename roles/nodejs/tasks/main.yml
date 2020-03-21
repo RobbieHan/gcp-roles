@@ -1,0 +1,23 @@
+- name: Get script NodeJS 10.x
+  get_url:
+    url: https://rpm.nodesource.com/setup_10.x
+    dest: "/tmp/nodejs.sh"
+    mode: "u+x"
+
+- name: NodeJS 10.x - Execute installation script
+  shell: "/tmp/nodejs.sh"
+
+- name: Node.js - Remove installation script
+  file:
+    path: "/tmp/nodejs.sh"
+    state: absent
+
+- name: Install NodeJS
+  yum :
+    name: nodejs
+    state: present
+
+- name: Install pm2
+  npm:
+    name: pm2
+    global: yes

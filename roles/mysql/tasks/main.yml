@@ -1,0 +1,43 @@
+- name: Install a list of packages for MySQL
+  yum:
+    name:
+      - perl
+      - net-tools
+      - autoconf
+    state: present
+
+- name: Remove the mariadb-libs.x86_64 for MySQL
+  yum:
+    name: mariadb-libs.x86_64
+    state: absent
+
+- name: Install mysql-server-5.6.45
+  yum:
+    name:
+      - https://cdn.mysql.com/Downloads/MySQL-5.6/MySQL-server-5.6.45-1.el7.x86_64.rpm
+      - https://cdn.mysql.com/Downloads/MySQL-5.6/MySQL-client-5.6.45-1.el7.x86_64.rpm
+    state: present
+
+
+- name: Template a file to /etc/my.cnf
+  template:
+    src: my.cnf.j2
+    dest: /etc/my.cnf
+    owner: mysql
+    mode: 0644
+
+- name: Ensure /db/mysql/data own by mysql
+  file:
+    path: /db/mysql
+    state: directory
+    owner: mysql
+    group: mysql
+    recurse: yes
+
+- name: Init mysql
+  command: mysql_install_db --defaults-file=/etc/my.cnf --user=mysql
+
+- name: Start MySQL service
+  service:
+    name: mysql
+    state: started
