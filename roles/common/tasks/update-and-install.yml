@@ -1,8 +1,9 @@
+
 - name: Upgrade all packages
-  yum: name="*" state= latest
+  yum: name="*" state=latest
 
 - name: Install epel-release
-  yum: name=epel-release sate=latst
+  yum: name=epel-release state=latest
 
 - name: Install base packages
   yum: name={{ item }} state=latest
