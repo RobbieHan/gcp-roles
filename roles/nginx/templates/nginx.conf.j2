@@ -1,0 +1,93 @@
+worker_processes  auto;
+
+#error_log  logs/error.log;
+#error_log  logs/error.log  notice;
+#error_log  logs/error.log  info;
+
+#pid        logs/nginx.pid;
+
+events {
+    worker_connections  102400;
+
+	## accept_mutex on | off; 默认开启,应对并发少的时候的惊群现象
+	accept_mutex off;
+
+	## multi_accept on|off; # 是否允许同时接收多个网络连接
+	multi_accept on;
+}
+
+
+#stream {
+#	include stream.conf;
+#}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    # 关闭服务器版本号
+    server_tokens off;
+
+    # 404 不记录error.log
+    log_not_found off;
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+
+    keepalive_timeout  65;
+
+    ## 所有的upstream统一在这里配置
+    #include upstream.conf;
+
+    #### 采用GZIP进行传输, 加速传输
+    gzip on;                #表示开启压缩功能
+    gzip_min_length 1k;     #表示允许压缩的页面最小字节数，页面字节数从header头的Content-Length中获取。 默认值是0，表示不管页面多大都 进行压缩，建议设置成大于1K。如果小于1K可能会越压越大
+    gzip_buffers 4 32k;     #压缩缓存区大小
+    #gzip_http_version 1.0; #压缩版本
+    gzip_comp_level 7;      #压缩比率
+    gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/json;  #指定压缩的类型
+    gzip_vary on;
+    gzip_disable "MSIE [1-6]\.";
+
+    # DNS解析服务器地址，用google的8.8.8.8有时候会访问不了，得益于某堵墙
+    # resolver 114.114.114.114 8.8.8.8 1.1.1.1;
+
+	# 开启全局第三方跨域访问授权
+  	# add_header Access-Control-Allow-Origin *;
+  	# add_header Access-Control-Allow-Headers DNT,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type;
+  	# add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+  	# add_header Access-Control-Expose-Headers 'WWW-Authenticate,Server-Authorization,User-Identity-Token';
+
+ 	set_real_ip_from 0.0.0.0/0;
+ 	real_ip_header X-Forwarded-For;
+ 	client_max_body_size 64M; #多少M根据实际情况填写
+
+    log_format json '{"@timestamp":"$time_iso8601",'
+                    '"@source":"$server_addr",'
+                    '"ip":"$http_x_forwarded_for",'
+                    '"client":"$remote_addr",'
+                    '"request_method":"$request_method",'
+                    '"scheme":"$scheme",'
+                    '"domain":"$server_name",'
+                    '"client_host":"$host",'
+                    '"referer":"$http_referer",'
+                    '"request":"$request_uri",'
+                    '"args":"$args",'
+                    '"sent_bytes":$body_bytes_sent,'
+                    '"status": $status,'
+                    '"responsetime":$request_time,'
+                    '"upstreamtime":"$upstream_response_time",'
+                    '"upstreamaddr":"$upstream_addr",'
+                    '"http_user_agent":"$http_user_agent",'
+                    '"https":"$https"'
+                    '}';
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+	include upstream.conf;
+	include sites-enabled/*.conf;
+}

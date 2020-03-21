@@ -1,0 +1,69 @@
+## api upstream
+upstream to_nodejs1 {
+    server {{ ip_fix }}12:90 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}12:91 max_fails=3 fail_timeout=5s backup;
+}
+
+upstream to_nodejs2 {
+    server {{ ip_fix }}12:92 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}12:93 max_fails=3 fail_timeout=5s backup;
+}
+
+upstream to_nodejs3 {
+    server {{ ip_fix }}12:94 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}12:95 max_fails=3 fail_timeout=5s backup;
+}
+
+upstream to_nodejs4 {
+    server {{ ip_fix }}12:96 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}12:97 max_fails=3 fail_timeout=5s backup;
+}
+
+map $arg_agent $game_api {
+    ~*1$ to_nodejs1;   # agent=1, agent=11, agent=21, agent=291...
+    ~*2$ to_nodejs1;
+    ~*3$ to_nodejs1;
+    ~*4$ to_nodejs1;   # agent=4, agent=14, agent=24, agent=294...
+    ~*5$ to_nodejs2;
+    ~*6$ to_nodejs2;
+    ~*7$ to_nodejs2;
+    ~*8$ to_nodejs3;
+    ~*9$ to_nodejs3;
+    ~*0$ to_nodejs3;
+    default to_nodejs4;  #无agent,或者agent= 或者agent=abc...
+} 
+
+
+## 转发给拉单服
+upstream game_ladan{ 
+	server {{ ip_fix }}15:90 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:91 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:92 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:93 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:94 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:95 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:96 max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}15:97 max_fails=3 fail_timeout=5s;
+}   
+
+
+# 转发给B端gateway进程
+upstream game_server{
+    server {{ ip_fix }}13:30050  max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}13:30051  max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}13:30052  max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}13:30053  max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}13:30054  max_fails=3 fail_timeout=5s;
+    server {{ ip_fix }}13:30055  max_fails=3 fail_timeout=5s;
+}
+
+
+## 转发给统计服
+upstream game_tj {
+	server {{ ip_fix }}14:92 max_fails=3 fail_timeout=5s;
+}       
+    
+## 转发给后台
+upstream game_manage {
+	server {{ ip_fix }}14:9100 max_fails=3 fail_timeout=5s;
+}
