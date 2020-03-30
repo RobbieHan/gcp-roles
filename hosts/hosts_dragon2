@@ -42,11 +42,15 @@
 10.12.11.22
 10.12.11.23
 
-[pikamaster]
+[pika_master]
 10.12.11.24
 
-[pikaslave]
+[pika]
+10.12.11.24
 10.12.11.25
+
+[pika_xydb]
+10.12.11.26
 
 [all_servers:children]
 common
@@ -58,6 +62,7 @@ db_ld_m_server
 dbservers
 pikaslave
 pikamaster
+pika_xydb
 
 [all_servers:vars]
 ansible_connection=ssh

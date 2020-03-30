@@ -1,3 +1,5 @@
+---
+
 - name: Install a list of packages for MySQL
   yum:
     name:
@@ -28,7 +30,7 @@
 
 - name: Ensure /db/mysql/data own by mysql
   file:
-    path: /db/mysql
+    path: "{{ mysql_dir }}"
     state: directory
     owner: mysql
     group: mysql
@@ -41,3 +43,4 @@
   service:
     name: mysql
     state: started
+    enabled: yes

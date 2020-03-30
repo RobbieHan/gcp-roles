@@ -1,0 +1,9 @@
+---
+- name: Install pika
+  hosts: 
+    - pika
+    - tj_server
+    - pika_xydb
+  roles:
+    - role: pika
+      pika_dir: /db/pika

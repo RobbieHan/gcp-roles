@@ -1,0 +1,8 @@
+---
+- name: Install nodejs
+  hosts:
+    - nodejs
+    - bgame
+    - db_ld_m_server
+  roles:
+    - nodejs

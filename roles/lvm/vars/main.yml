@@ -8,8 +8,7 @@ bgame_disk:
   - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'ext4', mount_dir: '/game'}
 
 tj_disk:
-  - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/game'}
-  - { vgname: 'vg1', disk: 'disklvm2', dev: '/dev/sdc', fstype: 'xfs', mount_dir: '/db/redis'}
+  - { vgname: 'vg1', disk: 'disklvm2', dev: '/dev/sdc', fstype: 'xfs', mount_dir: '/db/pika'}
 
 
 db_disk:
@@ -27,3 +26,6 @@ pika_disk:
 
 pika_m_disk:
   - { vgname: 'vg2', disk: 'disklvm3', dev: '/dev/sdd', fstype: 'xfs', mount_dir: '/db/mysql'}
+
+pika_xydb_disk:
+  - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/db/pika' }

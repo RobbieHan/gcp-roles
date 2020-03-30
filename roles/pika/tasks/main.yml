@@ -1,0 +1,13 @@
+---
+
+- name: Copy pika rpm install file
+  copy: src="pika-3.2.5-1.el7.x86_64.rpm" dest="/tmp"
+
+- name: Install pika by rpm
+  yum: name="/tmp/pika-3.2.5-1.el7.x86_64.rpm"  state=present
+
+- name:  Set pika configuration file
+  template: src="pika.conf.j2"  dest="/etc/pika.conf" backup=yes
+
+- name: Insure pika service is runing
+  service: name=pika state=started enabled=yes

@@ -1,0 +1,57 @@
+---
+- name: Create lvm disk and mount on nginx
+  hosts: nginx
+  roles:
+    - role: lvm
+      lvm_disk: "{{ nginx_disk }}"
+
+- name: Create lvm disk and mount on bgame
+  hosts: bgame
+  roles:
+    - role: lvm
+      lvm_disk: "{{ bgame_disk }}"
+
+- name: Create lvm disk and mount on tj_server
+  hosts: tj_server
+  roles:
+    - role: lvm
+      lvm_disk: "{{ tj_disk }}"
+
+- name: Create lvm disk and mount on nodejs
+  hosts: nodejs
+  roles:
+    - role: lvm
+      lvm_disk: "{{ game_disk }}"
+
+- name: Create lvm disk and mount on dbservers
+  hosts: dbservers
+  roles:
+    - role: lvm
+      lvm_disk: "{{ db_disk }}"
+
+- name: Create lvm disk and mount on db_ld_m_server
+  hosts: db_ld_m_server
+  roles:
+    - role: lvm
+      lvm_disk: "{{ db_ld_m_disk }}"
+
+- name: Create lvm disk and mount on pikaslave
+  hosts: pika
+  roles:
+    - role: lvm
+      lvm_disk: "{{ pika_disk }}"
+
+- name: Create lvm disk and mount on pika_master
+  hosts: pika_master
+  roles:
+    - role: lvm
+      lvm_disk: "{{ pika_m_disk }}"
+
+- name: Create lvm disk and  mount on pika_xydb
+  hosts: pika_xydb
+  roles:
+    - role: lvm
+      lvm_disk: "{{ pika_xydb_disk }}"
+
+
+

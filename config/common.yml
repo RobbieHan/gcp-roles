@@ -1,5 +1,0 @@
----
-- name: System common configuration
-  hosts: common
-  roles:
-    - common

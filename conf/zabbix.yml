@@ -1,0 +1,7 @@
+---
+- name: Install zabbix agent
+  vars:
+    zabbix_server: "10.121.0.9"
+    zabbix_listen_port: 18629
+  roles:
+    - zabbix
