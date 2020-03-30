@@ -23,17 +23,17 @@
     - role: lvm
       lvm_disk: "{{ game_disk }}"
 
-- name: Create lvm disk and mount on db_ld_m_server
-  hosts: db_ld_m_server
-  roles:
-    - role: lvm
-      lvm_disk: "{{ db_ld_m_disk }}"
-
 - name: Create lvm disk and mount on dbservers
   hosts: dbservers
   roles:
     - role: lvm
       lvm_disk: "{{ db_disk }}"
+
+- name: Create lvm disk and mount on db_ld_m_server
+  hosts: db_ld_m_server
+  roles:
+    - role: lvm
+      lvm_disk: "{{ db_ld_m_disk }}"
 
 - name: Create lvm disk and mount on pikaslave
   hosts: pikaslave
