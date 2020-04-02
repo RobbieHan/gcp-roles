@@ -1,5 +1,6 @@
 ---
 - name: Install zabbix agent
+  hosts: common
   vars:
     zabbix_server: "10.121.0.9"
     zabbix_listen_port: 18629
