@@ -1,16 +1,13 @@
 - name: Get script NodeJS 10.x
-  get_url:
-    url: https://rpm.nodesource.com/setup_10.x
-    dest: "/tmp/nodejs.sh"
-    mode: "u+x"
+  shell: "wget https://rpm.nodesource.com/setup_10.x -O /tmp/nodejs.sh"
+
+- name: Chmod +x nodejs.sh
+  file:
+    path: "/tmp/nodejs.sh"
+    mode: 0755
 
 - name: NodeJS 10.x - Execute installation script
   shell: "/tmp/nodejs.sh"
-
-- name: Node.js - Remove installation script
-  file:
-    path: "/tmp/nodejs.sh"
-    state: absent
 
 - name: Install NodeJS
   yum :

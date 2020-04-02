@@ -61,8 +61,8 @@ bgame
 tj_server
 db_ld_m_server
 dbservers
-pikaslave
-pikamaster
+pika
+pika_master
 pika_xydb
 
 [all_servers:vars]
