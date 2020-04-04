@@ -2,6 +2,5 @@
 - name: Install mysql
   hosts: 
     - dbservers
-    - pika_master
   roles:
     - mysql

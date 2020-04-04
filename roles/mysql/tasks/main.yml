@@ -37,7 +37,7 @@
     recurse: yes
 
 - name: Init mysql
-  command: !ls
+  command: mysql_install_db --defaults-file=/etc/my.cnf --user=mysql
 
 - name: Start MySQL service
   service:
