@@ -39,10 +39,10 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: 'api_acl.conf.j2', dest: '/nginx/conf/api_acl.conf' }
-    - { src: 'nginx.conf.j2', dest: '/nginx/conf/nginx.conf' }
-    - { src: 'stream.conf.j2', dest: '/nginx/conf/stream.conf' }
-    - { src: 'upstream.conf.j2', dest: '/nginx/conf/upstream.conf' }
+    - { src: 'api_acl.conf.j2', dest: '{{ install_dir }}/conf/api_acl.conf' }
+    - { src: 'nginx.conf.j2', dest: '{{ install_dir }}/conf/nginx.conf' }
+    - { src: 'stream.conf.j2', dest: '{{ install_dir }}/conf/stream.conf' }
+    - { src: 'upstream.conf.j2', dest: '{{ install_dir }}/conf/upstream.conf' }
 
 - name: Create directory {sites-available,sites-enabled} for NGINX
   file:
@@ -50,5 +50,5 @@
     state: directory
     mode: '0755'
   with_items:
-    - /nginx/conf/sites-available
-    - /nginx/conf/sites-enabled
+    - "{{ install_dir }}/conf/sites-available"
+    - "{{ install_dir }}/conf/sites-enabled"
