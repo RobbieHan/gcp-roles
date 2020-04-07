@@ -1,0 +1,12 @@
+---
+- include_tasks: conf/common.yml
+
+- include_tasks: conf/lvm.yml
+
+- include_tasks: conf/mysql.yml
+
+- include_tasks: conf/nginx.yml
+
+- include_tasks: conf/nodejs.yml
+
+- include_tasks: conf/pika.yml
