@@ -62,6 +62,7 @@ http {
 
  	set_real_ip_from 0.0.0.0/0;
  	real_ip_header X-Forwarded-For;
+    real_ip_recursive on;
  	client_max_body_size 64M; #多少M根据实际情况填写
 
     log_format json '{"@timestamp":"$time_iso8601",'
