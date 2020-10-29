@@ -4,4 +4,7 @@
     - dbservers
     - pika_master
   roles:
-    - mysql
+    - role: mysql
+      mysql_server_url: http://repo.mysql.com/yum/mysql-5.6-community/el/7/x86_64/mysql-community-server-5.6.45-2.el7.x86_64.rpm
+      mysql_client_url: http://repo.mysql.com/yum/mysql-5.6-community/el/7/x86_64/mysql-community-client-5.6.45-2.el7.x86_64.rpm
+  
