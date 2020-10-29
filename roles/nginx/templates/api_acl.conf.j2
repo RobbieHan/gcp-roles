@@ -1,2 +1,9 @@
-# allow 203.177.152.58;
-# deny all;
+
+# DEFAULT 0, 允许所有
+# DEFAULT 1, 只允许模拟代理
+ map $remote_addr $isApiDeny {
+     203.177.152.58 0; # 模拟代理
+     59.188.84.60 0;  # 模拟代理
+     59.188.78.89 0;
+    default 0;
+             }
