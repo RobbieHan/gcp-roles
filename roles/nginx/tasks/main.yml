@@ -46,6 +46,7 @@
     - { src: 'nginx.conf.j2', dest: '{{ install_dir }}/conf/nginx.conf' }
     - { src: 'stream.conf.j2', dest: '{{ install_dir }}/conf/stream.conf' }
     - { src: 'upstream.conf.j2', dest: '{{ install_dir }}/conf/upstream.conf' }
+    - { src: 'nginx_logrotate.j2', dest: '/etc/logrotate.d/nginx' }
 
 - name: Create directory {sites-available,sites-enabled} for NGINX
   file:
