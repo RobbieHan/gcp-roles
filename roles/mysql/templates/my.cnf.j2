@@ -5,8 +5,8 @@ no_auto_rehash
 [mysqld]
 federated
 # basedir=/usr/local/mysql
-datadir=/db/mysql/data
-pid-file=/db/mysql/data/mysqld.pid
+datadir={{ mysql_dir }}
+pid-file={{ mysql_dir }}/mysqld.pid
 socket=/var/lib/mysql/mysql.sock
 port=3306
 log_error=/var/log/mysql_error.log

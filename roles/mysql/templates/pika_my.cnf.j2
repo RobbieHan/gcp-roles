@@ -20,8 +20,8 @@ max_allowed_packet=128M
 # read_rnd_buffer_size = 2M
 #datadir=/var/lib/mysql
 #socket=/var/lib/mysql/mysql.sock
-datadir=/db/mysql/data                                                                                                                                                                
-pid-file=/db/mysql/data/mysqld.pid                                                                                                                                                    
+datadir={{ mysql_dir }}                                                                                                                                                               
+pid-file={{ mysql_dir }}/mysqld.pid                                                                                                                                                    
 socket=/var/lib/mysql/mysql.sock 
 
 # Disabling symbolic-links is recommended to prevent assorted security risks
