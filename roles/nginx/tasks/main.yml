@@ -31,7 +31,7 @@
   template: src=nginx_install.j2 dest=/tmp/nginx_install.sh mode=0744
 
 - name: Copy sites.sh to /usr/bin
-  template: src=sites.sh.j2 dest=/usr/bin/sits.sh mode=0744
+  template: src=sites.sh.j2 dest=/usr/bin/sites.sh mode=0744
 
 - name: Install nginx
   shell: "/bin/bash /tmp/nginx_install.sh"
