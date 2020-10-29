@@ -1,4 +1,4 @@
-create_swap: false
+create_swap: true
 ntpd_setup: true
 system_setup: true
 system_update: true

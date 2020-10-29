@@ -21,12 +21,23 @@
     state: present
 
 
-- name: Template a file to /etc/my.cnf
+- name: Template my.cnf.j2 to /etc/my.cnf
   template:
     src: my.cnf.j2
     dest: /etc/my.cnf
     owner: mysql
     mode: 0644
+  when:
+    - label is not defined
+
+- name: Template pika_my.cnf.j2 to /etc/my.cnf 
+  template:
+    src: pika_my.cnf.j2
+    dest: /etc/my.cnf
+    owner: mysql
+    mode: 0644
+  when:
+    - label is defined
 
 - name: Ensure /db/mysql/data own by mysql
   file:

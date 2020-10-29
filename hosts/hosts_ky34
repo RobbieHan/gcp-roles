@@ -44,7 +44,7 @@
 10.4.0.23
 
 [pika_master]
-10.4.0.24
+10.4.0.24  label = pika_mysql
 
 [pika]
 10.4.0.24

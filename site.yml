@@ -10,3 +10,5 @@
 - include_tasks: conf/nodejs.yml
 
 - include_tasks: conf/pika.yml
+
+- include_tasks: zabbix.yml
