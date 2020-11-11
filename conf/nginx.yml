@@ -5,4 +5,3 @@
     - role: nginx
       ip_fix: 127.0.0.
       install_dir: /nginx
-
