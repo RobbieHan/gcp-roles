@@ -1,4 +1,4 @@
 ---
-mysql_dir: /db/mysql/data
+mysql_dir: /db/mysql
 mysql_server_url: "http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.6/MySQL-server-5.6.45-1.el7.x86_64.rpm"
 mysql_client_url: "http://ftp.iij.ad.jp/pub/db/mysql/Downloads/MySQL-5.6/MySQL-client-5.6.45-1.el7.x86_64.rpm"

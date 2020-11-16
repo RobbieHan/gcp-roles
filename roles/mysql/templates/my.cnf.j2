@@ -1,21 +1,21 @@
-[mysql]
+/[mysql]
 prompt="\\u@\\h:\\d \\r:\\m:\\s> "
 
 no_auto_rehash
 [mysqld]
 federated
 # basedir=/usr/local/mysql
-datadir={{ mysql_dir }}
+datadir={{ mysql_dir }}/data
 pid-file={{ mysql_dir }}/mysqld.pid
 socket=/var/lib/mysql/mysql.sock
 port=3306
 log_error=/var/log/mysql_error.log
 slow_query_log_file=/var/log/mysql_slow.log
-log_bin=/db/mysql/binlog/mysql_bin
+log_bin={{ mysql_dir }}/binlog/mysql_bin
 # innodb_data_home_dir=/data/mysql/ibdata
-innodb_log_group_home_dir=/db/mysql/redo
-relay_log=/db/mysql/binlog/mysql_relay
-relay_log_index=/db/mysql/binlog/mysql_relay.index
+innodb_log_group_home_dir={{ mysql_dir }}/redo
+relay_log={{ mysql_dir }}/binlog/mysql_relay
+relay_log_index={{ mysql_dir }}/binlog/mysql_relay.index
 
 server_id=30
 symbolic-links=0
