@@ -1,25 +1,4 @@
 ---
-- hosts: all_servers
-  gather_facts: no
-  tasks:
-    - name: Creates a compressed archive of logs
-      archive: 
-        path:
-          - /var/log/cron*
-          - /var/log/messages*
-          - /var/log/secure*
-          - /var/log/boot.log*
-          - /var/log/lastlog*
-        dest: /tmp/{{ ansible_host }}.zip
-        format: zip    
-
-    - name: Fetch files from remote nodes
-      fetch: src=/tmp/{{ ansible_host }}.zip dest=/tmp/syslogs/ flat=yes
-
-    - name: Remove files from remote nodes
-      file: path=/tmp/{{ ansible_host }}.zip state=absent
-[root@platform-prod-gcp pbconf]# cat sudoers.yml 
-
 - hosts: common
   gather_facts: no
   tasks:
