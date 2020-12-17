@@ -1,21 +1,8 @@
 ---
-- name: System common setup (use for all in one)
-  hosts: common
-  roles:
-    - roles: common
-
-- name: nginx setup
-  roles:
-    - role: lvm
-      lvm_disk:
-        - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}
-    - role: nginx
-      ip_fix: 127.0.0.
-      install_dir: /data/nginx
-      
-- name: bgame setup (use for all in one)
+- name: bgame setup(all in one use for dev)
   hosts: bgame
   roles:
+    - roles: common  
     - role: lvm
       lvm_disk:
         - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}

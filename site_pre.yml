@@ -1,0 +1,28 @@
+---
+- name: System common setup
+  hosts: common
+  roles:
+    - roles: common
+
+- name: nginx setup
+  roles:
+    - role: lvm
+      lvm_disk:
+        - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}
+    - role: nginx
+      ip_fix: 127.0.0.
+      install_dir: /data/nginx
+
+- name: bgame setup
+  hosts: bgame
+  roles:
+    - role: lvm
+      lvm_disk:
+        - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}
+    - role: nodejs
+    - role: mysql
+      mysql_dir: /data/mysql
+    - role: pika
+      pika_dir: /data/pika
+
+
