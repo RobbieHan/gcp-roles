@@ -9,7 +9,7 @@
   hosts: bgame
   roles:
     - role: lvm
-      lvm_disk: "{{ bgame_disk }}"
+      lvm_disk: "{{ game_disk }}"
 
 - name: Create lvm disk and mount on tj_server
   hosts: tj_server
