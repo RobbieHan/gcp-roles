@@ -1,11 +1,8 @@
 ---
-- name: System setup
-  hosts: common
-  roles: 
-    - role: common
-- name: Create lvm disk on common
+- name: System setting(use for all in one)
   hosts: common
   roles:
+    - roles: common
     - role: lvm
       lvm_disk:
         - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}
