@@ -1,0 +1,40 @@
+---
+- hosts: all_servers
+  gather_facts: no
+  tasks:
+    - name: Creates a compressed archive of logs
+      archive: 
+        path:
+          - /var/log/cron*
+          - /var/log/messages*
+          - /var/log/secure*
+          - /var/log/boot.log*
+          - /var/log/lastlog*
+        dest: /tmp/{{ ansible_host }}.zip
+        format: zip    
+
+    - name: Fetch files from remote nodes
+      fetch: src=/tmp/{{ ansible_host }}.zip dest=/tmp/syslogs/ flat=yes
+
+    - name: Remove files from remote nodes
+      file: path=/tmp/{{ ansible_host }}.zip state=absent
+[root@platform-prod-gcp pbconf]# cat sudoers.yml 
+
+- hosts: common
+  gather_facts: no
+  tasks:
+  # delete sudo user: yunwei
+    - name: delete sudo user
+      lineinfile: path=/etc/sudoers regexp=yunwei* state=absent
+
+    - name: create user
+      user: name=yunwei
+    - name: set password for yunwei
+      shell: "echo 'Yunwei@2018*.A' | passwd --stdin yunwei"     
+
+    # copy sudoers file
+    - name: add sudoers
+      lineinfile: 
+        path: /etc/sudoers 
+        #regexp: "^yunwei"    
+        line: 'yunwei ALL=(ALL) NOPASSWD:ALL'

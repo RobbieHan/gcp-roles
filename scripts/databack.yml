@@ -1,0 +1,31 @@
+---
+- name: System setup
+  hosts: common
+  roles: 
+    - role: common
+- name: Create lvm disk and mount on db-api
+  hosts: db-api
+  roles:
+    - role: lvm
+      lvm_disk:
+        - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/db/mysql/data/3306'}
+        - { vgname: 'vg1', disk: 'disklvm2', dev: '/dev/sdc', fstype: 'xfs', mount_dir: '/db/mysql/data/3307'}
+        - { vgname: 'vg2', disk: 'disklvm3', dev: '/dev/sdd', fstype: 'xfs', mount_dir: '/back/3306'}
+        - { vgname: 'vg3', disk: 'disklvm4', dev: '/dev/sde', fstype: 'xfs', mount_dir: '/back/3307'}
+        - { vgname: 'vg4', disk: 'disklvm5', dev: '/dev/sdf', fstype: 'xfs', mount_dir: '/db/pika'}
+    - role: mysql
+      mysql_dir: /db/mysql/3306
+    - role: pika
+
+- name: Create lvm disk and mount on dbservers
+  hosts: dbservers
+  roles:
+    - role: lvm
+      lvm_disk:
+        - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/db/mysql/data/'}
+        - { vgname: 'vg1', disk: 'disklvm2', dev: '/dev/sdc', fstype: 'xfs', mount_dir: '/backup'}
+        - { vgname: 'vg2', disk: 'disklvm3', dev: '/dev/sdd', fstype: 'xfs', mount_dir: '/db/pika'}
+
+    - role: mysql
+      mysql_dir: /db/mysql/data
+    - role: pika
