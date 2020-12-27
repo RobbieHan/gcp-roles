@@ -2,7 +2,7 @@
 - name: bgame setup(all in one use for dev)
   hosts: bgame
   roles:
-    - roles: common  
+    - role: common  
     - role: lvm
       lvm_disk:
         - { vgname: 'vg0', disk: 'disklvm1', dev: '/dev/sdb', fstype: 'xfs', mount_dir: '/data'}

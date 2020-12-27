@@ -2,9 +2,10 @@
 - name: System common setup
   hosts: common
   roles:
-    - roles: common
+    - role: common
 
 - name: nginx setup
+  hosts: nginx
   roles:
     - role: lvm
       lvm_disk:
